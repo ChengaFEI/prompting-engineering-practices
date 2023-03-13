@@ -275,3 +275,7 @@ The useContext hook takes the ThemeContext object as its argument and returns it
 In the App component, we are wrapping the ThemedButton component inside a ThemeContext.Provider component. The Provider component takes a value prop that sets the current value of the context. In this case, we are setting the value to an object with background and foreground properties to apply a dark theme to the button.
 
 Overall, these three hooks are very powerful and useful in creating functional components with state and side effects. The useState hook allows you to add state to functional components, the useEffect hook allows you to perform side effects, and the useContext hook allows you to consume a context. By using these hooks, you can create more flexible and reusable components in your React applications.
+
+## Problems Found
+
+ChatGPT will automatically stop when reaching a length limit. How to prompt ChatGPT to ouput complete texts no matter how long the text is.
