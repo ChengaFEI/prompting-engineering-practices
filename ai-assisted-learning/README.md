@@ -1,6 +1,6 @@
 # ai-assisted-learning
 
-This module contains prompting practices that employs AIGC tools to teach a complete beginner to learn a theory/skill from scratch.
+This module contains prompting practices that employs AIGC tools to teach a complete beginner theories/skills from scratch, and build a complex application with natural languages only (without manually writing any code).
 
 ## Rules
 
