@@ -6,6 +6,8 @@ This module contains prompting practices that employs AIGC tools to teach a comp
 
 1. Know nothing about basic concepts in the field.
 2. Only use selected AIGC platform/tool as learning resources.
+3. Only use selected AIGC platform/tool to build the capstone project.
+4. Only use natural languages and never write any code.
 
 ## Assumptions
 
