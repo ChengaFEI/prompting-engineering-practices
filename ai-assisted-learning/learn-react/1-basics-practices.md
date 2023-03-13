@@ -133,3 +133,93 @@ npm start
 ```
 
 This should open a new tab in your default browser and display the application. If not, open your browser and navigate to "http://localhost:3000" to view the application. You should see a heading that says "Counter App", a paragraph that displays the count state (initialized to 0), and a button that says "Increment". When you click the button, the count state should increase by 1.
+
+## Prompt 3
+
+Write a React web application program that employs functional components and other core concepts in React. Explain the code line-by-line and in-detail.
+
+## Answer 3
+
+Sure, here's an example of a React web application program that employs functional components and other core concepts in React:
+
+```jsx
+import React, { useState, useEffect } from "react";
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+
+  const handleClick = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <div>
+      <h1>Counter App</h1>
+      <p>Count: {count}</p>
+      <button onClick={handleClick}>Increment</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+Let's go through this code line-by-line:
+
+```jsx
+import React, { useState, useEffect } from "react";
+```
+
+This line imports the React library, as well as the useState and useEffect hooks, which we'll use to manage state and perform side effects, respectively.
+
+```jsx
+function App() {
+```
+
+This line defines the App component as a functional component. Unlike class components, functional components don't have a state or lifecycle methods of their own.
+
+```jsx
+const [count, setCount] = useState(0);
+```
+
+This line defines the count state and its updater function setCount, using the useState hook. The initial value of the count state is 0.
+
+```jsx
+useEffect(() => {
+  document.title = `You clicked ${count} times`;
+});
+```
+
+This code sets up a side effect using the useEffect hook. The effect updates the document title to include the current count state whenever it changes. Since we're not specifying any dependencies, this effect will run after every render.
+
+```jsx
+const handleClick = () => {
+  setCount(count + 1);
+};
+```
+
+This code defines the handleClick function, which updates the count state when the button is clicked. We use the setCount function to update the state in a way that's safe for React to handle.
+
+```jsx
+return (
+  <div>
+    <h1>Counter App</h1>
+    <p>Count: {count}</p>
+    <button onClick={handleClick}>Increment</button>
+  </div>
+);
+```
+
+This code defines the UI using JSX, which includes a header, a paragraph that displays the count state, and a button that triggers the handleClick function when clicked.
+
+```jsx
+export default App;
+```
+
+This code exports the App component so that it can be used elsewhere in the application.
+
+This example demonstrates how functional components, hooks, state, and side effects can be used together to create a simple React web application.
