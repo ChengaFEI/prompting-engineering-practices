@@ -19,3 +19,8 @@ This module contains prompting practices that employs AIGC tools to teach a comp
 
 1. Enable any complete beginner to learn concepts from practices/examples.
 2. Enable any complete beginner to build complex applications by communicating their ideas with AIGC tools using natural languages.
+
+## Tips for Learners
+
+1. Build connections between concepts and code snippets.
+2. Build connections between code snippets and application functionalities.
