@@ -1,4 +1,4 @@
-# 1-basics
+# 1-basics-concepts
 
 AI tool: ChatGPT
 
