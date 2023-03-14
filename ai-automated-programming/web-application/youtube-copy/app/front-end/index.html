@@ -3,22 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Video Website</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
+    <title>Video Website</title>
   </head>
   <body>
-    <header>
-      <nav>
-        <input type="search" id="search" placeholder="Search..." />
-        <button id="search-btn">Search</button>
+    <header class="bg-dark">
+      <nav class="container navbar navbar-expand-lg navbar-dark">
+        <a href="#" class="navbar-brand">VideoSite</a>
+        <form class="form-inline">
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
       </nav>
     </header>
-
     <main>
-      <section id="video-grid">
-        <!-- Video cards will be added here dynamically -->
-      </section>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="list-group my-4">
+              <a href="#" class="list-group-item list-group-item-action"
+                >Home</a
+              >
+              <a href="#" class="list-group-item list-group-item-action"
+                >Trending</a
+              >
+              <a href="#" class="list-group-item list-group-item-action"
+                >Subscriptions</a
+              >
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="row" id="video-grid"></div>
+          </div>
+        </div>
+      </div>
     </main>
+    <script src="script.js"></script>
   </body>
 </html>

@@ -29,5 +29,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  fetchVideos();
+  // fetchVideos();
 });
+
+fetch("http://localhost:3001/public/videos")
+  .then((response) => response.json())
+  .then((videos) => {
+    const videoGrid = document.getElementById("video-grid");
+    videos.forEach((video) => {
+      videoGrid.innerHTML += `
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="${video.thumbnail}" class="card-img-top" alt="Thumbnail">
+            <div class="card-body">
+              <h5 class="card-title">${video.title}</h5>
+              <p class="card-text">${video.description}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+  })
+  .catch((error) => {
+    console.error("Error fetching videos:", error);
+  });

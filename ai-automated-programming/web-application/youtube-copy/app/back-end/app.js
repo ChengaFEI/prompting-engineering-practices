@@ -6,13 +6,23 @@ const mysql = require("mysql2/promise");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
-require("dotenv").config();
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const dbConfig = {
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+};
 
 const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.json());
 
 async function createConnection() {
   return await mysql.createConnection({
@@ -102,6 +112,18 @@ app.post("/login", async (req, res) => {
 app.get("/videos", authenticateToken, async (req, res) => {
   try {
     const connection = await createConnection();
+    const [rows] = await connection.query("SELECT * FROM videos");
+    connection.end();
+    res.json(rows);
+  } catch (error) {
+    console.error("Error fetching videos:", error);
+    res.status(500).json({ error: "An error occurred while fetching videos" });
+  }
+});
+
+app.get("/public/videos", async (req, res) => {
+  try {
+    const connection = await mysql.createConnection(dbConfig);
     const [rows] = await connection.query("SELECT * FROM videos");
     connection.end();
     res.json(rows);
