@@ -11,3 +11,9 @@ CREATE TABLE videos (
 INSERT INTO videos (title, author, thumbnail)
 VALUES ('Sample Video 1', 'John Doe', 'https://via.placeholder.com/300x200'),
        ('Sample Video 2', 'Jane Doe', 'https://via.placeholder.com/300x200');
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL
+);
