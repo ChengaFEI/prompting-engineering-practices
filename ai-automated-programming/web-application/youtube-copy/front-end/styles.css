@@ -1,0 +1,61 @@
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #f8f9fa;
+  padding: 15px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+
+input[type="search"] {
+  width: 60%;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px;
+  background-color: #167ac6;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+main {
+  padding: 20px;
+}
+
+#video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+}
+
+.video-card {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: auto;
+}
+
+.video-title {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.video-author {
+  color: #999;
+}
