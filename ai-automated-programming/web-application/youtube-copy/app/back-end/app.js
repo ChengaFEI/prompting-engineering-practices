@@ -123,8 +123,13 @@ app.get("/videos", authenticateToken, async (req, res) => {
 
 app.get("/public/videos", async (req, res) => {
   try {
+    const searchTerm = req.query.search;
     const connection = await mysql.createConnection(dbConfig);
-    const [rows] = await connection.query("SELECT * FROM videos");
+    let query = "SELECT * FROM videos";
+    if (searchTerm) {
+      query += " WHERE title LIKE ?";
+    }
+    const [rows] = await connection.execute(query, [`%${searchTerm}%`]);
     connection.end();
     res.json(rows);
   } catch (error) {
