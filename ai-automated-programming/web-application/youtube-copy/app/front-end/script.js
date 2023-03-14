@@ -40,7 +40,11 @@ fetch("http://localhost:3001/public/videos")
       videoGrid.innerHTML += `
         <div class="col-md-4 mb-4">
           <div class="card">
-            <img src="${video.thumbnail}" class="card-img-top" alt="Thumbnail">
+            <a href="video-player.html?url=${encodeURIComponent(video.url)}">
+              <img src="${
+                video.thumbnail
+              }" class="card-img-top" alt="Thumbnail">
+            </a>
             <div class="card-body">
               <h5 class="card-title">${video.title}</h5>
               <p class="card-text">${video.description}</p>
