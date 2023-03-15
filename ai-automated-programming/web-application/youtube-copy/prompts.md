@@ -1318,3 +1318,347 @@ In this updated code, I replaced the `<video>` element with an `<iframe>` elemen
 Now, when you provide a YouTube video link (e.g., https://www.youtube.com/watch?v=SGUCcjHTmGY) as the video URL, it should play correctly on the video-player.html page.
 
 Please note that this solution only works for YouTube videos. If you want to support other video hosting platforms or direct video file URLs, you'll need to add additional checks and handle each case accordingly.
+
+## Prompt 18
+
+complete the trending module of the front-end; list 10 youtube videos whose uploaded time is less than 2 hours and have more than 10,000 likes; use the same video template in index.html page; use the same thumbnail images as original youtube videos
+
+## Answer 18
+
+To complete the trending module of your front-end, you will need to use the YouTube Data API to fetch videos with the specified criteria. Here are the steps:
+
+1. Create a new HTML file named trending.html:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/C96JzSZMt/x1fctwapFtA9XtKx8K7F+mdP2Q0K"
+      crossorigin="anonymous"
+    />
+    <title>Trending Videos</title>
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h1 class="text-center mb-4">Trending Videos</h1>
+      <div class="row" id="video-grid"></div>
+    </div>
+    <script src="trending.js"></script>
+  </body>
+</html>
+```
+
+2. Create a new JavaScript file named trending.js:
+
+```javascript
+const apiKey = "YOUR_YOUTUBE_API_KEY";
+
+fetchTrendingVideos();
+
+function fetchTrendingVideos() {
+  const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&order=viewCount&publishedAfter=${getTwoHoursAgo()}&maxResults=10&key=${apiKey}`;
+
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      const videoGrid = document.getElementById("video-grid");
+      videoGrid.innerHTML = "";
+
+      const videoIds = data.items.map((item) => item.id.videoId).join(",");
+
+      fetchVideoStats(videoIds).then((videoStats) => {
+        data.items.forEach((item, index) => {
+          if (videoStats[index].statistics.likeCount > 10000) {
+            videoGrid.innerHTML += `
+              <div class="col-md-4 mb-4">
+                <div class="card">
+                  <a href="https://www.youtube.com/watch?v=${item.id.videoId}" target="_blank">
+                    <img src="${item.snippet.thumbnails.high.url}" class="card-img-top" alt="Thumbnail">
+                  </a>
+                  <div class="card-body">
+                    <h5 class="card-title">${item.snippet.title}</h5>
+                    <p class="card-text">${item.snippet.description}</p>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+        });
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching trending videos:", error);
+    });
+}
+
+function getTwoHoursAgo() {
+  const twoHoursAgo = new Date();
+  twoHoursAgo.setHours(twoHoursAgo.getHours() - 2);
+  return twoHoursAgo.toISOString();
+}
+
+function fetchVideoStats(videoIds) {
+  const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoIds}&key=${apiKey}`;
+
+  return fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => data.items)
+    .catch((error) => {
+      console.error("Error fetching video stats:", error);
+      return [];
+    });
+}
+```
+
+Replace 'YOUR_YOUTUBE_API_KEY' with your actual YouTube API key. You can obtain an API key from the Google Developer Console by creating a new project and enabling the YouTube Data API v3 for that project. Then, create an API key credential and use it in the trending.js file.
+
+The trending.js file contains a function fetchTrendingVideos, which fetches the top 10 trending videos published within the last 2 hours using the YouTube Data API. It then calls the fetchVideoStats function to fetch the statistics for each video.
+
+The fetchVideoStats function retrieves video statistics using the YouTube Data API. It filters the videos based on their like count (more than 10,000 likes) and displays them in the video-grid element on the trending.html page.
+
+Please note that this approach relies on the YouTube Data API, which has a quota limit. You can increase the quota limit in the Google Developer Console if needed, but be aware of the associated costs.
+
+Now, when you open the trending.html file in your browser, it will display the top 10 trending YouTube videos that meet the specified criteria.
+
+## Prompt 19
+
+only shows 1 video
+
+## Answer 19
+
+Apologies for the confusion. The issue occurs because the API request returns the top 10 videos sorted by view count within the specified time frame, but not all videos may have more than 10,000 likes. To address this, you can modify the fetchTrendingVideos function in trending.js to request more results (e.g., 50) and display up to 10 videos that meet the criteria.
+
+Update the fetchTrendingVideos function as follows:
+
+```javascript
+function fetchTrendingVideos() {
+  const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&order=viewCount&publishedAfter=${getTwoHoursAgo()}&maxResults=50&key=${apiKey}`;
+
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      const videoGrid = document.getElementById("video-grid");
+      videoGrid.innerHTML = "";
+
+      const videoIds = data.items.map((item) => item.id.videoId).join(",");
+
+      fetchVideoStats(videoIds).then((videoStats) => {
+        let displayedVideos = 0;
+        data.items.forEach((item, index) => {
+          if (
+            videoStats[index].statistics.likeCount > 10000 &&
+            displayedVideos < 10
+          ) {
+            videoGrid.innerHTML += `
+              <div class="col-md-4 mb-4">
+                <div class="card">
+                  <a href="https://www.youtube.com/watch?v=${item.id.videoId}" target="_blank">
+                    <img src="${item.snippet.thumbnails.high.url}" class="card-img-top" alt="Thumbnail">
+                  </a>
+                  <div class="card-body">
+                    <h5 class="card-title">${item.snippet.title}</h5>
+                    <p class="card-text">${item.snippet.description}</p>
+                  </div>
+                </div>
+              </div>
+            `;
+            displayedVideos++;
+          }
+        });
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching trending videos:", error);
+    });
+}
+```
+
+This change increases the number of results returned by the API to 50 and only displays up to 10 videos that have more than 10,000 likes. Keep in mind that increasing the maxResults value will consume more of your YouTube API quota.
+
+## Prompt 20
+
+make visual effects of trending page consistent with the home page;
+
+## Answer 20
+
+To make the visual effects of the trending.html page consistent with the index.html page, you can reuse the same styles and structure for the video grid. You can also add a navigation bar with links to the home and trending pages for a consistent user experience.
+
+1. Update the trending.html file:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/C96JzSZMt/x1fctwapFtA9XtKx8K7F+mdP2Q0K"
+      crossorigin="anonymous"
+    />
+    <title>Trending Videos</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">My Video Website</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="trending.html">Trending</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container mt-4">
+      <h1 class="text-center mb-4">Trending Videos</h1>
+      <div class="row" id="video-grid"></div>
+    </div>
+    <script src="trending.js"></script>
+  </body>
+</html>
+```
+
+2. Add the same navigation bar to the index.html file:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/C96JzSZMt/x1fctwapFtA9XtKx8K7F+mdP2Q0K" crossorigin="anonymous">
+  <title>Video Website</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">My Video Website</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trending.html">Trending</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container mt-4">
+    <!-- Your existing code for the video grid -->
+  </div>
+  <script src="script.js"></script>
+</body>
+</html
+```
+
+## Prompt 21
+
+```javascript
+const apiKey = "YOUR_YOUTUBE_API_KEY";
+
+fetchTrendingVideos();
+
+async function fetchTrendingVideos() {
+  const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&order=viewCount&publishedAfter=${getTwoHoursAgo()}&maxResults=50&key=${apiKey}`;
+
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    const videoGrid = document.getElementById("video-grid");
+    videoGrid.innerHTML = "";
+
+    const videoIds = data.items.map((item) => item.id.videoId).join(",");
+
+    const videoStats = await fetchVideoStats(videoIds);
+
+    let displayedVideos = 0;
+    data.items.forEach((item, index) => {
+      if (
+        videoStats[index].statistics.likeCount > 10000 &&
+        displayedVideos < 10
+      ) {
+        videoGrid.innerHTML += `
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <a href="https://www.youtube.com/watch?v=${item.id.videoId}" target="_blank">
+                <img src="${item.snippet.thumbnails.high.url}" class="card-img-top" alt="Thumbnail">
+              </a>
+              <div class="card-body">
+                <h5 class="card-title">${item.snippet.title}</h5>
+                <p class="card-text">${item.snippet.description}</p>
+              </div>
+            </div>
+          </div>
+        `;
+        displayedVideos++;
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching trending videos:", error);
+  }
+}
+
+function getTwoHoursAgo() {
+  const twoHoursAgo = new Date();
+  twoHoursAgo.setHours(twoHoursAgo.getHours() - 2);
+  return twoHoursAgo.toISOString();
+}
+
+function fetchVideoStats(videoIds) {
+  const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoIds}&key=${apiKey}`;
+
+  return fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => data.items)
+    .catch((error) => {
+      console.error("Error fetching video stats:", error);
+      return [];
+    });
+}
+```
+
+error in 5:12; fix it
+
+## Answer 21
+
+I apologize for the confusion. It seems that the DOMContentLoaded event might have already fired before the event listener is added in the script.js file, causing the error.
+
+To resolve this issue, you can wrap the event listener in an anonymous function that checks if the DOM is already loaded. If the DOM is loaded, call the fetchVideos function immediately. Otherwise, add the event listener for the DOMContentLoaded event:
+
+```javascript
+(function () {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchVideos();
+    });
+  } else {
+    fetchVideos();
+  }
+})();
+```
+
+Replace the existing event listener in the script.js file with the above code snippet. This should resolve the "Cannot read properties of null" error you're encountering.
+
+My apologies for the confusion. The error you're encountering seems to be caused by the DOMContentLoaded event listener being added before the script is loaded. To fix this issue, you can defer the loading of the script.js file by adding the defer attribute to the script tag in your index.html file.
+
+Update your script tag in the index.html file like this:
+
+```html
+<script src="script.js" defer></script>
+```
+
+This change should resolve the error you're encountering. The defer attribute ensures that the script is executed only after the HTML document has been completely loaded, which should allow the addEventListener function to work as expected.

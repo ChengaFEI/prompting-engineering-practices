@@ -14,6 +14,8 @@ ChatGPT with GPT-4
 
 1 hour (Prompts: 1-17; Date: 03/14/2023)
 
+15 minutes (Date: 03/15/2023)
+
 ## Prompts
 
 1. write a program for a video website's homepage; similar to youtube
@@ -49,3 +51,11 @@ ChatGPT with GPT-4
 16. i click on the video in the homepage, but it's not played; add real videos; allow user to play the video on click
 
 17. I use https://www.youtube.com/watch?v=SGUCcjHTmGY as the video link, it doesn't play
+
+18. complete the trending module of the front-end; list 10 youtube videos whose uploaded time is less than 2 hours and have more than 10,000 likes; use the same video template in index.html page; use the same thumbnail images as original youtube videos
+
+19. only shows 1 video
+
+20. make visual effects of trending page consistent with the home page;
+
+21. `<error code> + <error message>`
