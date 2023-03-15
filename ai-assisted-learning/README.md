@@ -1,5 +1,7 @@
 # ai-assisted-learning
 
+## Update Date: 03/12/2023
+
 This module contains prompting practices that employs AIGC tools to teach a complete beginner theories/skills from scratch, and build a complex application with natural languages only (without manually writing any code).
 
 ## Rules

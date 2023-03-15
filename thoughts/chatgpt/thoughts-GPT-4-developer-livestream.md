@@ -1,8 +1,12 @@
 # Thoughts after watching GPT-4 Developer Livestream
 
+## Update Date: 03/14/2023
+
 ## Topic 1:
 
 ### A chatgpt-based programming language that only uses natural languages
+
+### Date: 03/14/2023
 
 The structure of this new language is alike a traditional programming language but each component/element will be written in natural language.
 

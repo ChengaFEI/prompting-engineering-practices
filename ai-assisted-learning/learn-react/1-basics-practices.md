@@ -1,6 +1,12 @@
 # 1-basics-practices
 
-AI tool: ChatGPT
+## AI tool
+
+ChatGPT
+
+## Update Date
+
+03/12/2023
 
 ## Prompt 1
 

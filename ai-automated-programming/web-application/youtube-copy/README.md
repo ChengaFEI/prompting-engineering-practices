@@ -1,5 +1,7 @@
 # Youtube-Copy
 
+## Update Date: 03/14/2023
+
 ## Introduction
 
 A simple replicate of Youtube home page
@@ -10,7 +12,7 @@ ChatGPT with GPT-4
 
 ## Time
 
-1 hour
+1 hour (Prompts: 1-17; Date: 03/14/2023)
 
 ## Prompts
 
