@@ -2,11 +2,15 @@
 const searchForm = document.getElementById("search-form");
 const searchInput = document.getElementById("search-input");
 
-searchForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const searchTerm = searchInput.value.trim();
-  fetchVideos(searchTerm);
-});
+(function () {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchVideos();
+    });
+  } else {
+    fetchVideos();
+  }
+})();
 
 function fetchVideos(searchTerm) {
   const url = searchTerm
