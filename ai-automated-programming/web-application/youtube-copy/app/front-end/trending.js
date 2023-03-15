@@ -1,4 +1,4 @@
-const apiKey = "YOUTUBE_API_KEY";
+const apiKey = "AIzaSyCKL6mMvN2bmXYL6jD_FYA8oTednKfv5HU";
 
 fetchTrendingVideos();
 
