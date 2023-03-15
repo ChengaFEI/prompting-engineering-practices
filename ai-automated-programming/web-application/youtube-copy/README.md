@@ -14,7 +14,7 @@ ChatGPT with GPT-4
 
 1 hour (Prompts: 1-17; Date: 03/14/2023)
 
-15 minutes (Date: 03/15/2023)
+15 minutes (Prompts: 18-21; Date: 03/15/2023)
 
 ## Prompts
 
